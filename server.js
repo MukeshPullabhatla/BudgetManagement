@@ -15,6 +15,9 @@ const UserConnectionDB = require('./models/UserConnectionDB');
 const UserDB = require('./models/UserDB');
 const UserProfile = require('./models/UserProfile');
 const UserProfileDB = require('./models/UserProfileDB');
+const budgetModel = require('./models/budgetModel');
+const feedbackModel = require('./models/feedbackModel');
+const userModel = require('./models/userModel');
 
 /*
 Importing Routes
@@ -23,6 +26,9 @@ const auth = require('./routes/auth.js');
 const connectionRoutes = require('./routes/connectionRoutes.js');
 const index = require('./routes/index.js');
 const userRoutes = require('./routes/userRoutes.js');
+const budget = require('./routes/budget');
+const feedback = require('./routes/feedback');
+const userModel = require('./routes/users');
 
 const port = 3000;
 
