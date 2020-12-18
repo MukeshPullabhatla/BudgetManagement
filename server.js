@@ -1,16 +1,44 @@
+const express = require('express');
+const app = express();
+const config = require('config');
+const cors = require('cors');
+app.use(cors());
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser');
+
+const connection = require('./models/connection');
+const ConnectionDB = require('./models/ConnectionDB');
+const User = require('./models/User');
+const UserConnection = require('./models/UserConnection');
+const UserConnectionDB = require('./models/UserConnectionDB');
+const UserDB = require('./models/UserDB');
+const UserProfile = require('./models/UserProfile');
+const UserProfileDB = require('./models/UserProfileDB');
+
 /*
-* user responding (RSVP) to a connection to save to their account (profile)
-* user removing (delete) connections they've saved in their account (profile)
-* user changing (update) their response. A user should be able to change any response they previously provided.
-* */
+Importing Routes
+*/
+const auth = require('./routes/auth.js');
+const connectionRoutes = require('./routes/connectionRoutes.js');
+const index = require('./routes/index.js');
+const userRoutes = require('./routes/userRoutes.js');
 
-var express = require('express');
-var expressLayouts = require('express-ejs-layouts');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-let mongoose = require('mongoose');
+const port = 3000;
 
-mongoose.connect('mongodb+srv://Gayatri:vaka%402799@cluster0.eqrnf.mongodb.net/Cinco?authSource=admin&replicaSet=atlas-z4c3fg-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true', {useNewUrlParser: true, useUnifiedTopology: true});
+const accessTokenKey = 'My secret key';
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+const expressLayouts = require('express-ejs-layouts');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+mongoose.connect(
+	'mongodb+srv://mukesh:mukesh@cluster0.0tclz.mongodb.net/BudgetManagement?retryWrites=true&w=majority',
+	{ useNewUrlParser: true, useUnifiedTopology: true }
+);
 
 let db = mongoose.connection;
 
@@ -18,11 +46,9 @@ let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 // Check if Connected to Database
-db.once('open', function() {
-  console.log("Connection Success !!")
+db.once('open', function () {
+	console.log('Connection Success !!');
 });
-
-var app = express();
 
 app.set('view engine', 'ejs');
 
@@ -36,31 +62,34 @@ app.use(expressLayouts);
 
 // Maintaining Sessions
 app.use(cookieParser());
-app.use(session({
-  secret: "WillYouMarryMe",
-  saveUninitialized: true,
-  resave: true
-}));
+app.use(
+	session({
+		secret: 'WillYouMarryMe',
+		saveUninitialized: true,
+		resave: true,
+	})
+);
 
-/*
-Importing Routes
-*/
+app.use((req, res, next) => {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+	res.setHeader('Access-Control-Allow-Headers', 'Content-type, Authorization');
+	next();
+});
 
-let indexRoutes = require('./routes/index.js');
-let connectionRoutes = require('./routes/connectionRoutes.js');
-let loginRoutes = require('./routes/userRoutes.js');
-
+app.use(express.json());
+app.use('/users', users);
+app.use('/auth', auth);
 app.use('/connection', connectionRoutes);
-app.use('/user', loginRoutes);
-app.use('/', indexRoutes);
+app.use('/user', userRoutes);
+app.use('/', index);
 
 /*
 To handle 404 Error
 */
-app.get('*', function(req, res){
-  res.status(404).send({'Error': '404 Not Found'});
+app.get('*', function (req, res) {
+	res.status(404).send({ Error: '404 Not Found' });
 });
 
-app.listen(4000);
+app.listen(3000);
 
-console.log("Listening on Port 4000");
+console.log('Listening on Port 3000');

@@ -1,0 +1,44 @@
+{
+	"Budget": [
+		{
+			"title": "Eat out",
+			"budget": 50
+		},
+		{
+			"title": "Rent",
+			"budget": 75
+		},
+		{
+			"title": "Grocery",
+			"budget": 50
+		},
+		{
+			"title": "Electricity",
+			"budget": 100
+		},
+		{
+			"title": "Medical",
+			"budget": 125
+		},
+		{
+			"title": "Gas",
+			"budget": 60
+		},
+		{
+			"title": "Savings",
+			"budget": 100
+		},
+		{
+			"title": "Expenditure",
+			"budget": 75
+		},
+		{
+			"title": "Insurance",
+			"budget": 80
+		},
+		{
+			"title": "Travel",
+			"budget": 25
+		}
+	]
+}
