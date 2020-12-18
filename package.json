@@ -1,0 +1,21 @@
+{
+  "name": "Cinco-BackEnd",
+  "version": "1.0.0",
+  "description": "SSDI Project for Group 6",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cookie-parser": "^1.4.4",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.17.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.9.7"
+  }
+}
