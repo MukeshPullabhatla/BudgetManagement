@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 const bcrypt = require('bcrypt');
-const User = require('../models/UserConnection.js');
+const User = require('../models/userModel');
 const express = require('express');
 const router = express.Router();
 const jwt_decode = require('jwt-decode');
@@ -9,21 +8,21 @@ const exjwt = require('express-jwt');
 const cors = require('cors');
 router.use(cors());
 
-const accessTokenKey = 'My secret key';
+const accessTokenKey = 'My super secret key';
 
 const jwtMW = exjwt({
 	secret: accessTokenKey,
 	algorithms: ['HS256'],
 });
 router.post('/', async (req, res) => {
-	//  find the user by their email address
+	//  Now find the user by their email address
 	let user = await User.findOne({ username: req.body.username });
 	if (!user) {
 		return res.status(206).send('Incorrect username or password.');
 	}
 
-	// validate the Credentials in MongoDB
-
+	// Then validate the Credentials in MongoDB match
+	// those provided in the request
 	const validPassword = await bcrypt.compare(req.body.password, user.password);
 	if (!validPassword) {
 		return res.status(204).send('Incorrect email or password.');
