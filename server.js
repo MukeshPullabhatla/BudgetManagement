@@ -16,7 +16,7 @@ const budget = require('./routes/budget');
 const feedback = require('./routes/feedback');
 
 const feedbackModel = require('./models/feedbackModel');
-const port = 3000;
+
 const accessTokenKey = 'secret key';
 
 app.use(bodyParser.urlencoded({ extended: true }));
